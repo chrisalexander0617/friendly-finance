@@ -33,9 +33,6 @@ export const MortageCalculator = () => {
     return (
         <Paper elevation={5}>
             <Box p={5}>
-                <Box p={5}>
-                    <Typography sx={{textAlign:'center'}} variant="h3">Mortgage Calculator</Typography>
-                </Box>
                 <Box>
                     <Grid container spacing={5}>
                         <Grid item xs={4}>
