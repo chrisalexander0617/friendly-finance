@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     Grid, 
     Box, 
@@ -14,10 +14,19 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export const MortageCalculator = () => {
-    const [age, setAge] = React.useState('');
+    const [loanType, setLoanType] = useState('');
+    const [FICOScore, setFICOScore] = useState('');
+    const [preference, setPreference] = useState('');
 
-    const handleChange = (event) => {
-      setAge(event.target.value);
+
+    const handleChangeLoanType = (event) => {
+      setLoanType(event.target.value);
+    };
+    const handleChangeFICOScore = (event) => {
+        setFICOScore(event.target.value);
+    };
+    const handleChangePreference = (event) => {
+        setPreference(event.target.value);
     };
   
     const styles = {
@@ -41,9 +50,9 @@ export const MortageCalculator = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={age}
+                                    value={loanType}
                                     label="What is the most important when choosing a loan?"
-                                    onChange={handleChange}
+                                    onChange={handleChangeLoanType}
                                 >
                                     <MenuItem value={4}>Home Purchase</MenuItem>
                                     <MenuItem value={3}>Refinance</MenuItem>
@@ -66,9 +75,9 @@ export const MortageCalculator = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={age}
+                                    value={FICOScore}
                                     label="What is the most important when choosing a loan?"
-                                    onChange={handleChange}
+                                    onChange={handleChangeFICOScore}
                                 >
                                     <MenuItem value={4}>Excellent (740+)</MenuItem>
                                     <MenuItem value={3}>Very Good (700 - 739)</MenuItem>
@@ -84,9 +93,9 @@ export const MortageCalculator = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={age}
+                                    value={preference}
                                     label="What is the most important when choosing a loan?"
-                                    onChange={handleChange}
+                                    onChange={handleChangePreference}
                                 >
                                     <MenuItem value={10}>Low Interest</MenuItem>
                                     <MenuItem value={20}>Steady Monthly Payment</MenuItem>
