@@ -7,11 +7,11 @@ import {
 } from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 
-export const GuestCard = ({data}) => {
+export const UserCard = ({data}) => {
     const navigate = useNavigate()
 
     const handleClick = async () => 
-        navigate(`/guest/${data._id}`)
+        navigate(`/user/${data._id}`)
     
     return (
         <>

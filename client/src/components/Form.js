@@ -60,7 +60,7 @@ export const Form = () =>   {
     const handleSubmit = () => {
         try {
             axios
-                .post('http://localhost:8080/guests', query)
+                .post('http://localhost:8080/users', query)
         } catch(err) {
             console.log('we gots a prahlem:', err)
         }
@@ -71,7 +71,7 @@ export const Form = () =>   {
         <Box>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Typography variant='h4'>Add Guest</Typography>
+                    <Typography variant='h4'>Add user</Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <TextField

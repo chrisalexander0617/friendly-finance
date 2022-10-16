@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-export const GuestSchema = new Schema({
+export const UserSchema = new Schema({
     created_date:{
         type:Date,
         default:Date.now
@@ -11,20 +11,19 @@ export const GuestSchema = new Schema({
         type:String,
         required:true
     },
-    lastName:{
-        type:String,
-        required:true
-    },
     email:{
         type:String,
-        required:true
+        required:true  
     },
-    phone:{
-        type:Number,
-        required:true
-    },
-    address:{
+    password:{
         type:String,
         required:true
     }
+})
+
+export const HotelSchema = new Schema({
+    created_date:{
+        type:Date,
+        default:Date.now
+    },
 })

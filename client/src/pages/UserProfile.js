@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Grid, TextField, Typography, Button, Dialog, DialogTitle} from '@mui/material'
-import {GuestInfo} from '../components/GuestInfo'
+import {UserInfo} from '../components/UserInfo'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
 
-export const GuestProfile = () => {
+export const UserProfile = () => {
     const [data, setData] = useState(null)
     const { id } = useParams()
     const [open, isOpen] = useState(false)
 
     useEffect(()=> {
-        axios.get(`http://localhost:8080/guest/${id}`)
+        axios.get(`http://localhost:8080/user/${id}`)
         .then(res => {
             setData(res['data'])
         })
@@ -61,7 +61,7 @@ export const GuestProfile = () => {
             }
             try {
                 axios
-                    .put(`http://localhost:8080/guest/${id}`, query)
+                    .put(`http://localhost:8080/user/${id}`, query)
             } catch(err) {
                 console.log('we gots a prahlem:', err)
             }
@@ -82,7 +82,7 @@ export const GuestProfile = () => {
                     <DialogTitle>Update user</DialogTitle>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Typography variant='h4'>Add Guest</Typography>
+                            <Typography variant='h4'>Add user</Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
@@ -137,14 +137,9 @@ export const GuestProfile = () => {
                     open={open} 
                 />
                 {data && (
-                    <GuestInfo
+                    <UserInfo
                         _id={id}
-                        firstname={data.firstName} 
-                        lastname={data.lastName}
                         email={data.email}
-                        phone={data.phone}
-                        address={data.address}
-                        handleUpdate={handleOpenModal}
                     />
                 )}
             </Box>

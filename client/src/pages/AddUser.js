@@ -7,16 +7,16 @@ import {
     Button
 } from '@mui/material'
 import {Form} from '../components/Form'
-import {GuestCard} from '../components/GuestCard'
+import {UserCard} from '../components/UserCard'
 import axios from 'axios'
 
-export const AddGuest = () => {
+export const AddUser = () => {
     const [data, setData] = useState([])
 
     useEffect(() => {
         //the port number is what you set in the 
         //.env in your /server folder
-        axios.get(`http://localhost:8080/guests`)
+        axios.get(`http://localhost:8080/users`)
         .then(res => setData(res['data']))
     },[])
 
@@ -32,7 +32,7 @@ export const AddGuest = () => {
                 <Grid container spacing={3}>
                     {data && data.map((item, i) =>(
                         <Grid key={i} item xs={3}>
-                            <GuestCard data={item} />
+                            <UserCard data={item} />
                         </Grid>
                     ))}
                 </Grid>

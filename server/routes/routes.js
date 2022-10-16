@@ -1,24 +1,24 @@
 import {
     homeRoute, 
-    addNewGuest, 
-    getGuests,
-    getGuestById,
-    deleteGuestById,
-    updateGuestById
+    addNewUser, 
+    getUsers,
+    getUserById,
+    deleteUserById,
+    updateUserById
 } from '../controllers/controllers'
 
 const routes = (app) => {
     app.route('/')
         .get(homeRoute)
     //Data Fetching
-    app.route('/guests')
-        .get(getGuests)
-        .post(addNewGuest)
+    app.route('/users')
+        .get(getUsers)
+        .post(addNewUser)
     //CRUD operations
-    app.route('/guest/:id')
-        .get(getGuestById)
-        .delete(deleteGuestById)
-        .put(updateGuestById)
+    app.route('/user/:id')
+        .get(getUserById)
+        .delete(deleteUserById)
+        .put(updateUserById)
 }
 
 export default routes

@@ -75,7 +75,7 @@ function App() {
             >
           I also added extra comments
           </Typography>
-          <Button variant='contained' href='/add-guest'>View the demo</Button>
+          <Button variant='contained' href='/add-user'>View the demo</Button>
         </Box>
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6}>

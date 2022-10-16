@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-import {AddGuest} from './pages/AddGuest'
-import {GuestProfile} from './pages/GuestProfile'
+import {Mortgage} from './pages/Mortgage'
 import reportWebVitals from './reportWebVitals'
 import {
   createBrowserRouter,
@@ -19,13 +18,17 @@ const router = createBrowserRouter([
     path: '/',
     element: <App/>,
   },
+  // {
+  //   path: '/add-user',
+  //   element: <AddUser />,
+  // },
+  // {
+  //   path: '/user/:id',
+  //   element: <UserProfile />,
+  // },
   {
-    path: '/add-guest',
-    element: <AddGuest />,
-  },
-  {
-    path: '/guest/:id',
-    element: <GuestProfile />,
+    path: '/mortgage',
+    element: <Mortgage />,
   },
   /* {
   //   path: '/your-route',
