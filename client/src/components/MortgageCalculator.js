@@ -14,28 +14,30 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import axios from 'axios'
 
-
-
-
 export const MortageCalculator = () => {
     const [loanType, setLoanType] = useState('');
+    const [homePrice, setHomePrice] = useState('');
+    const [downPayment, setDownPayment] = useState('');
     const [FICOScore, setFICOScore] = useState('');
     const [preference, setPreference] = useState('');
-    const [monthlyPayment, setMonthlyPayment] = useState(200)
+    const [monthlyPayment, setMonthlyPayment] = useState(0)
 
     const handleChangeLoanType = (event) => 
         setLoanType(event.target.value);
-    
+
+    const handleChangeHomePrice = (event) => 
+        setHomePrice(event.target.value);
+
+    const handleChangeDownPayment = (event) => 
+        setDownPayment(event.target.value);
 
     const handleChangeFICOScore = (event) => 
         setFICOScore(event.target.value);
-    
 
     const handleChangePreference = (event) => 
         setPreference(event.target.value);
     
-    
-    console.log('axios', axios)
+
     const styles = {
         TextField: {
             width:'100%'
@@ -46,38 +48,37 @@ export const MortageCalculator = () => {
         }
     }
 
-    const calculateMortgageRate = async ( loanAmount, interestRate, terms ) => {
+    const calculateMortgageRate = async () => {
+        const updatedLoanAmount = homePrice - downPayment
+        
         const options = {
             method: 'GET',
             url: 'https://mortgage-monthly-payment-calculator.p.rapidapi.com/revotek-finance/mortgage/monthly-payment',
-            params: {loanAmount: loanAmount, interestRate:interestRate, terms:terms},
+            params: {loanAmount:updatedLoanAmount, interestRate:0.05, terms:360},
             headers: {
-              'X-RapidAPI-Key': '0c569bc259msh607acdabc330e72p169f7cjsnfc26f1a401c5',
-              'X-RapidAPI-Host': 'mortgage-monthly-payment-calculator.p.rapidapi.com'
+              'X-RapidAPI-Key': '',
+              'X-RapidAPI-Host': ''
             }
-          };
-        axios
-        .request(options)
+        }
+
+        try {
+            const mortgage = await axios.request(options)
+            if(mortgage) 
+                setMonthlyPayment(mortgage.data.monthlyPayment.toFixed(2))
+        } catch (err) {
+            console.log('Error:',err)
+        }
     }
 
-    useEffect(()=> {
-        try {
-            const mortgage = calculateMortgageRate(400000, 0.05, 360)
-            console.log('mortgage payment:', mortgage)
-            setMonthlyPayment(mortgage.monthlyPayment)
-            console.log('Success bitch')
-        } catch (err) {
-            console.log('err:', err)
-        }
-        
-    })
-    
     return (
         <Paper elevation={5}>
             <Box p={5}>
                 <Box>
                     <Grid container spacing={5}>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
+                            <Typography variant='h1'>${monthlyPayment}</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={4}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">What type of loan are you looking for?</InputLabel>
                                 <Select
@@ -93,16 +94,16 @@ export const MortageCalculator = () => {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={4}>
-                            <TextField type="number" sx={styles.TextField} label="Home Price" />
+                        <Grid item xs={12} md={4}>
+                            <TextField value={homePrice} onChange={handleChangeHomePrice} type="number" sx={styles.TextField} label="Home Price" />
                         </Grid>
-                        <Grid item xs={4}>
-                            <TextField type="number" sx={styles.TextField} label="Down Payment" />
+                        <Grid item xs={12} md={4}>
+                            <TextField value={downPayment} onChange={handleChangeDownPayment} type="number" sx={styles.TextField} label="Down Payment" />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} md={4}>
                             <TextField type="number" sx={styles.TextField} label="Property Zip Code" />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} md={4}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Choose a FICO score range</InputLabel>
                                 <Select
@@ -120,7 +121,7 @@ export const MortageCalculator = () => {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} md={4}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">What is the most important when choosing a loan?</InputLabel>
                                 <Select
@@ -138,11 +139,9 @@ export const MortageCalculator = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant="contained" sx={styles.FullWidthButton}>Get my options</Button>
+                            <Button onClick={calculateMortgageRate} variant="contained" sx={styles.FullWidthButton}>Get my options</Button>
                         </Grid>
-                        <Grid item xs={12}>
-                            {monthlyPayment && <Typography>{monthlyPayment}</Typography>}
-                        </Grid>
+                        
                     </Grid>
                 </Box>
             </Box>
