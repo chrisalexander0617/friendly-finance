@@ -1,5 +1,5 @@
 import React,{useEffect, useRef, useState} from 'react'
-import {Box, Container,Grid, Typography} from '@mui/material'
+import {Box, Container,Grid, Typography, Button} from '@mui/material'
 import axios from 'axios'
 import { 
     PieChart, 
@@ -22,7 +22,7 @@ const FICOChart = () => {
             const applicantsWithBelowFairCredit = results.data.filter(application => application.FICOScore === 6.7)
 
             const dataForChart = [
-                { name: 'Excellent Credit', value:applicantsWithExcellentCredit.length },
+                { name: 'Excellent Credit', value:applicantsWithExcellentCredit.length},
                 { name: 'Great Credit', value:applicantsWithGreatCredit.length },
                 { name: 'Good Credit', value:applicantsWithGoodCredit.length },
                 { name: 'Fair Credit', value:applicantsWithFairCredit.length},
@@ -37,6 +37,8 @@ const FICOChart = () => {
         fetchedApplications.current = true
         fetchMortgageApplications()
     },[data]) 
+
+
 
 
     return (
@@ -70,6 +72,7 @@ export const Analytics = () => {
             <Container sx={styles.Container} maxwidth="sm">
                 <Typography variant="h3">Credit Analytics</Typography>
                 <Typography variant="body1">FICO Scores from recent applications</Typography>
+                <Button href="/" variant="outlined" sx={styles.FullWidthButton}>Back to Form</Button>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <FICOChart />

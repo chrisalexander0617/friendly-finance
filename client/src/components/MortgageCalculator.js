@@ -21,7 +21,7 @@ export const MortageCalculator = () => {
     const [loanType, setLoanType] = useState('');
     const [homePrice, setHomePrice] = useState('');
     const [downPayment, setDownPayment] = useState('');
-    const [FICOScore, setFICOScore] = useState();
+    const [FICOScore, setFICOScore] = useState(5.8);
     const [loanPreference, setLoanPreference] = useState('');
     const [monthlyPayment, setMonthlyPayment] = useState(0)
     const [zipCode, setZipCode] = useState(0)
@@ -103,9 +103,6 @@ export const MortageCalculator = () => {
             if(mortgage) 
                 setMonthlyPayment(mortgage.data.monthlyPayment.toFixed(2))
             submitAppplication()
-
-            
-            
         } catch (err) { 
             console.log('Error:',err) 
         }
@@ -187,7 +184,14 @@ export const MortageCalculator = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button onClick={calculateMortgageRate} variant="contained" sx={styles.FullWidthButton}>Get my options</Button>
+                            <Grid container spacing={3}>
+                                <Grid xs={6} item>
+                                    <Button onClick={calculateMortgageRate} variant="contained" sx={styles.FullWidthButton}>Get my options</Button>
+                                </Grid>
+                                <Grid xs={6} item>
+                                    <Button href="/analytics" variant="outlined" sx={styles.FullWidthButton}>View Analytics</Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Box>
