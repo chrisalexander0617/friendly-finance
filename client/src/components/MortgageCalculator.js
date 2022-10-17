@@ -22,9 +22,16 @@ export const MortageCalculator = () => {
     const [homePrice, setHomePrice] = useState('');
     const [downPayment, setDownPayment] = useState('');
     const [FICOScore, setFICOScore] = useState(4);
-    const [preference, setPreference] = useState('');
+    const [loanPreference, setLoanPreference] = useState('');
     const [monthlyPayment, setMonthlyPayment] = useState(0)
+    const [zipCode, setZipCode] = useState(0)
     const [error, setErrors] = useState('')
+
+    const handleChangeFirstName = (event) => 
+        setFirstName(event.target.value);
+
+    const handleChangeEmail = (event) => 
+        setEmail(event.target.value);
 
     const handleChangeLoanType = (event) => 
         setLoanType(event.target.value);
@@ -38,8 +45,11 @@ export const MortageCalculator = () => {
     const handleChangeFICOScore = (event) => 
         setFICOScore(event.target.value);
 
-    const handleChangePreference = (event) => 
-        setPreference(event.target.value);
+    const handleChangeZipCode = (event) => 
+        setZipCode(event.target.value);
+
+    const handleChangeLoanPreference = (event) => 
+        setLoanPreference(event.target.value);
     
 
     const styles = {
@@ -50,6 +60,29 @@ export const MortageCalculator = () => {
             width:'100%',
             padding:1
         }
+    }
+
+    const submitAppplication = () => {
+        const query = {
+            firstName:firstName, 
+            email:email,
+            loanType:loanType,
+            homePrice:parseInt(homePrice),
+            downPayment:parseInt(downPayment),
+            zipCode:parseInt(zipCode),
+            FICOScore:parseInt(FICOScore),
+            loanPreference:loanPreference
+        }
+
+        try {
+            console.log('Submitting form')
+            axios
+                .post('http://localhost:8080/applications', query)
+        } catch(err) {
+            console.log('we gots a prahlem:', err)
+        }
+
+        console.log('QUERY:', query)
     }
 
     const calculateMortgageRate = async () => {
@@ -69,6 +102,10 @@ export const MortageCalculator = () => {
             const mortgage = await axios.request(options)
             if(mortgage) 
                 setMonthlyPayment(mortgage.data.monthlyPayment.toFixed(2))
+            submitAppplication()
+
+            
+            
         } catch (err) { 
             console.log('Error:',err) 
         }
@@ -83,10 +120,10 @@ export const MortageCalculator = () => {
                             <Typography variant='h1'>${monthlyPayment}</Typography>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField value={homePrice} onChange={handleChangeHomePrice} type="text" sx={styles.TextField} label="Name" required/>
+                            <TextField onChange={handleChangeFirstName} value={firstName} type="email" sx={styles.TextField} label="Name" required/>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField value={homePrice} onChange={handleChangeHomePrice} type="text" sx={styles.TextField} label="Email" required/>
+                            <TextField value={email} onChange={handleChangeEmail} type="text" sx={styles.TextField} label="Email" required/>
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <FormControl fullWidth>
@@ -111,7 +148,7 @@ export const MortageCalculator = () => {
                             <TextField value={downPayment} onChange={handleChangeDownPayment} type="number" sx={styles.TextField} label="Down Payment" />
                         </Grid>
                         <Grid item xs={12} md={4}>
-                            <TextField type="number" sx={styles.TextField} label="Property Zip Code" />
+                            <TextField value={zipCode} onChange={handleChangeZipCode} type="number" sx={styles.TextField} label="Property Zip Code" />
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <FormControl fullWidth>
@@ -137,9 +174,9 @@ export const MortageCalculator = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={preference}
+                                    value={loanPreference}
                                     label="What is the most important when choosing a loan?"
-                                    onChange={handleChangePreference}
+                                    onChange={handleChangeLoanPreference}
                                 >
                                     <MenuItem value={10}>Low Interest</MenuItem>
                                     <MenuItem value={20}>Steady Monthly Payment</MenuItem>
