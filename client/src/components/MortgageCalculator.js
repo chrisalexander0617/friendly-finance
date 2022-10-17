@@ -70,9 +70,11 @@ export const MortageCalculator = () => {
             homePrice:parseInt(homePrice),
             downPayment:parseInt(downPayment),
             zipCode:parseInt(zipCode),
-            FICOScore:parseInt(FICOScore),
+            FICOScore:FICOScore,
             loanPreference:loanPreference
         }
+
+        console.log('QUERY:', query)
 
         try {
             console.log('Submitting form')
@@ -81,8 +83,6 @@ export const MortageCalculator = () => {
         } catch(err) {
             console.log('we gots a prahlem:', err)
         }
-
-        console.log('QUERY:', query)
     }
 
     const calculateMortgageRate = async () => {
@@ -137,7 +137,7 @@ export const MortageCalculator = () => {
                                 >
                                     <MenuItem value="Home Purchase">Home Purchase</MenuItem>
                                     <MenuItem value="Refinance">Refinance</MenuItem>
-                                    <MenuItem value="Cash-out Refinance">Cash-out Refinance</MenuItem>
+                                    <MenuItem value="Cash-out Refina">Cash-out Refinance</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -156,7 +156,8 @@ export const MortageCalculator = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={FICOScore}
+                                    value={FICOScore ? FICOScore : 5.1}
+                                    defaultValue={5.1}
                                     label="What is the most important when choosing a loan?"
                                     onChange={handleChangeFICOScore}
                                 >

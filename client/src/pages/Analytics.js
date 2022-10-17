@@ -4,31 +4,35 @@ import axios from 'axios'
 import { 
     PieChart, 
     Pie, 
-    Cell, 
     ResponsiveContainer 
 } from 'recharts';
 
 
 const FICOChart = () => {
+    const [data, setData] = useState()
     const fetchedApplications = useRef(false)
-    const [data, setData] = useState([
-        { name: 'Group A', value: 400 },
-        { name: 'Group B', value: 300 },
-        { name: 'Group C', value: 300 },
-        { name: 'Group D', value: 200 },
-    ]); 
 
     const fetchMortgageApplications = async () => {
         try {
             const results = await axios.get('http://localhost:8080/applications')
-            console.log('here are the results', results.data)
-            // setData(results.data)
+            const applicantsWithExcellentCredit = results.data.filter(application => application.FICOScore === 5.1)
+            const applicantsWithGreatCredit = results.data.filter(application => application.FICOScore === 5.4)
+            const applicantsWithGoodCredit = results.data.filter(application => application.FICOScore === 5.8)
+            const applicantsWithFairCredit = results.data.filter(application => application.FICOScore === 6.2)
+            const applicantsWithBelowFairCredit = results.data.filter(application => application.FICOScore === 6.7)
+
+            const dataForChart = [
+                { name: 'Excellent Credit', value:applicantsWithExcellentCredit.length },
+                { name: 'Great Credit', value:applicantsWithGreatCredit.length },
+                { name: 'Good Credit', value:applicantsWithGoodCredit.length },
+                { name: 'Fair Credit', value:applicantsWithFairCredit.length},
+                { name: 'Below Fair Credit', value:applicantsWithBelowFairCredit.length },
+            ]
+            setData(dataForChart)
         } catch (err) {}
     }
 
-
     useEffect(() => {
-        console.log('analytics')
         if(fetchedApplications.current) return
         fetchedApplications.current = true
         fetchMortgageApplications()
@@ -64,8 +68,8 @@ export const Analytics = () => {
     return (
         <>
             <Container sx={styles.Container} maxwidth="sm">
-                <Typography variant="h3">Mortgage Analytics</Typography>
-                <Typography variant="body1">Learn about your customers by reviewing their data</Typography>
+                <Typography variant="h3">Credit Analytics</Typography>
+                <Typography variant="body1">FICO Scores from recent applications</Typography>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <FICOChart />
