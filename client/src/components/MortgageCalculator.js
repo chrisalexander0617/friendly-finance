@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+
+import React, {useState} from 'react'
 import {
     Grid, 
     Box, 
@@ -18,9 +19,10 @@ export const MortageCalculator = () => {
     const [loanType, setLoanType] = useState('');
     const [homePrice, setHomePrice] = useState('');
     const [downPayment, setDownPayment] = useState('');
-    const [FICOScore, setFICOScore] = useState('');
+    const [FICOScore, setFICOScore] = useState(4);
     const [preference, setPreference] = useState('');
     const [monthlyPayment, setMonthlyPayment] = useState(0)
+    const [error, setErrors] = useState('')
 
     const handleChangeLoanType = (event) => 
         setLoanType(event.target.value);
@@ -50,23 +52,23 @@ export const MortageCalculator = () => {
 
     const calculateMortgageRate = async () => {
         const updatedLoanAmount = homePrice - downPayment
-        
+        const interestRateFromFICOScore = FICOScore * 0.01
         const options = {
             method: 'GET',
             url: 'https://mortgage-monthly-payment-calculator.p.rapidapi.com/revotek-finance/mortgage/monthly-payment',
-            params: {loanAmount:updatedLoanAmount, interestRate:0.05, terms:360},
+            params: {loanAmount:updatedLoanAmount, interestRate:interestRateFromFICOScore, terms:360},
             headers: {
-              'X-RapidAPI-Key': '',
-              'X-RapidAPI-Host': ''
-            }
+                'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+                'X-RapidAPI-Host': process.env.REACT_APP_API_HOSTY
+              }
         }
 
         try {
             const mortgage = await axios.request(options)
             if(mortgage) 
                 setMonthlyPayment(mortgage.data.monthlyPayment.toFixed(2))
-        } catch (err) {
-            console.log('Error:',err)
+        } catch (err) { 
+            console.log('Error:',err) 
         }
     }
 
@@ -113,11 +115,11 @@ export const MortageCalculator = () => {
                                     label="What is the most important when choosing a loan?"
                                     onChange={handleChangeFICOScore}
                                 >
-                                    <MenuItem value={4}>Excellent (740+)</MenuItem>
-                                    <MenuItem value={3}>Very Good (700 - 739)</MenuItem>
-                                    <MenuItem value={2}>Good (660 - 699)</MenuItem>
-                                    <MenuItem value={1}>Fair (620 - 659)</MenuItem>
-                                    <MenuItem value={0}>(619 and below)</MenuItem>
+                                    <MenuItem value={5.1}>Excellent (740+)</MenuItem>
+                                    <MenuItem value={5.4}>Very Good (700 - 739)</MenuItem>
+                                    <MenuItem value={5.8}>Good (660 - 699)</MenuItem>
+                                    <MenuItem value={6.2}>Fair (620 - 659)</MenuItem>
+                                    <MenuItem value={6.7}>(619 and below)</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -141,7 +143,6 @@ export const MortageCalculator = () => {
                         <Grid item xs={12}>
                             <Button onClick={calculateMortgageRate} variant="contained" sx={styles.FullWidthButton}>Get my options</Button>
                         </Grid>
-                        
                     </Grid>
                 </Box>
             </Box>
