@@ -21,7 +21,7 @@ export const MortageCalculator = () => {
     const [loanType, setLoanType] = useState('');
     const [homePrice, setHomePrice] = useState('');
     const [downPayment, setDownPayment] = useState('');
-    const [FICOScore, setFICOScore] = useState(4);
+    const [FICOScore, setFICOScore] = useState();
     const [loanPreference, setLoanPreference] = useState('');
     const [monthlyPayment, setMonthlyPayment] = useState(0)
     const [zipCode, setZipCode] = useState(0)
@@ -135,9 +135,9 @@ export const MortageCalculator = () => {
                                     label="What is the most important when choosing a loan?"
                                     onChange={handleChangeLoanType}
                                 >
-                                    <MenuItem value={4}>Home Purchase</MenuItem>
-                                    <MenuItem value={3}>Refinance</MenuItem>
-                                    <MenuItem value={2}>Cash-out Refinance</MenuItem>
+                                    <MenuItem value="Home Purchase">Home Purchase</MenuItem>
+                                    <MenuItem value="Refinance">Refinance</MenuItem>
+                                    <MenuItem value="Cash-out Refinance">Cash-out Refinance</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -178,10 +178,10 @@ export const MortageCalculator = () => {
                                     label="What is the most important when choosing a loan?"
                                     onChange={handleChangeLoanPreference}
                                 >
-                                    <MenuItem value={10}>Low Interest</MenuItem>
-                                    <MenuItem value={20}>Steady Monthly Payment</MenuItem>
-                                    <MenuItem value={30}>Short-term Ownership</MenuItem>
-                                    <MenuItem value={30}>Low Monthly Payment</MenuItem>
+                                    <MenuItem value="Low Interest">Low Interest</MenuItem>
+                                    <MenuItem value="Steady Monthly Payment">Steady Monthly Payment</MenuItem>
+                                    <MenuItem value="Short-term Ownership">Short-term Ownership</MenuItem>
+                                    <MenuItem value="Low Monthly Payment">Low Monthly Payment</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
