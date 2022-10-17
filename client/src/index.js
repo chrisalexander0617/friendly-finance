@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import {Mortgage} from './pages/Mortgage'
+import { Analytics } from './pages/Analytics'
 import reportWebVitals from './reportWebVitals'
 import {
   createBrowserRouter,
@@ -18,22 +19,14 @@ const router = createBrowserRouter([
     path: '/',
     element: <App/>,
   },
-  // {
-  //   path: '/add-user',
-  //   element: <AddUser />,
-  // },
-  // {
-  //   path: '/user/:id',
-  //   element: <UserProfile />,
-  // },
   {
-    path: '/mortgage',
+    path: '/',
     element: <Mortgage />,
   },
-  /* {
-  //   path: '/your-route',
-  //   element: <YourComponent />,
-  },*/
+  {
+    path: '/analytics',
+    element: <Analytics />,
+  },
 ])
 
 root.render(
