@@ -1,30 +1,30 @@
 import mongoose from 'mongoose'
-import {UserSchema, HotelSchema} from '../models/model' 
+import {ApplicationSchema} from '../models/model' 
 
 //Creating a vairable from the mongoose schema, will 
 //automatically create a new collection under the name
 // Example: User -> Users (collection in Atlas)
-const User = mongoose.model('User', UserSchema)
+const Application = mongoose.model('Application', ApplicationSchema)
 
 
 export const homeRoute = (req, res) => {
     res.send('Home')
 }
 
-export const addNewUser = (req, res) => {
-    let newUser = new User(req.body)
-    newUser.save((err) => {
+export const addNewApplication = (req, res) => {
+    let newApplication = new Application(req.body)
+    newApplication.save((err) => {
         if(err) res.send(err)
-        res.json(User)
+        res.json(Application)
     })
 }
 
-export const getUsers = (req, res) => {
-   User.find({}, (err, User) =>{
-        if(err) res.send(err)
-        res.json(User)
-    })
-}
+export const getApplications = (req, res) => {
+    Application.find({}, (err, Application) =>{
+         if(err) res.send(err)
+         res.json(Application)
+     })
+ }
 
 export const getUserById = (req, res) => {
     User.findById(req.params.id, (err, User) =>{

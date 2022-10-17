@@ -16,6 +16,8 @@ import Select from '@mui/material/Select';
 import axios from 'axios'
 
 export const MortageCalculator = () => {
+    const [firstName, setFirstName] = useState('');
+    const [email, setEmail] = useState('');
     const [loanType, setLoanType] = useState('');
     const [homePrice, setHomePrice] = useState('');
     const [downPayment, setDownPayment] = useState('');
@@ -79,6 +81,12 @@ export const MortageCalculator = () => {
                     <Grid container spacing={5}>
                         <Grid item xs={12}>
                             <Typography variant='h1'>${monthlyPayment}</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField value={homePrice} onChange={handleChangeHomePrice} type="text" sx={styles.TextField} label="Name" required/>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField value={homePrice} onChange={handleChangeHomePrice} type="text" sx={styles.TextField} label="Email" required/>
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <FormControl fullWidth>

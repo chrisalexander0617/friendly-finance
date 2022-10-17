@@ -1,7 +1,7 @@
 import {
     homeRoute, 
-    addNewUser, 
-    getUsers,
+    addNewApplication, 
+    getApplications,
     getUserById,
     deleteUserById,
     updateUserById
@@ -11,11 +11,11 @@ const routes = (app) => {
     app.route('/')
         .get(homeRoute)
     //Data Fetching
-    app.route('/users')
-        .get(getUsers)
-        .post(addNewUser)
+    app.route('/applications')
+        .get(getApplications)
+        .post(addNewApplication)
     //CRUD operations
-    app.route('/user/:id')
+    app.route('/application/:id')
         .get(getUserById)
         .delete(deleteUserById)
         .put(updateUserById)
