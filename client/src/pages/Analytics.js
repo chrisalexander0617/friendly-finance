@@ -1,5 +1,6 @@
 import React,{useEffect, useRef, useState} from 'react'
 import {Box, Container,Grid, Typography, Button} from '@mui/material'
+import {ApplicationTable} from '../components/ApplicationTable'
 import axios from 'axios'
 import { 
     PieChart, 
@@ -84,7 +85,6 @@ const FICOChart = () => {
 export const Analytics = () => {
     const styles = {
         Container:{
-            height:'100vh',
             display:'flex',
             justifyContent:'center',
             alignItems:'center',
@@ -103,6 +103,7 @@ export const Analytics = () => {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <FICOChart />
+                        <ApplicationTable />
                     </Grid>
                 </Grid>
             </Container>
