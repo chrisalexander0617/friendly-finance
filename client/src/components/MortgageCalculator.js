@@ -100,9 +100,11 @@ export const MortageCalculator = () => {
 
         try {
             const mortgage = await axios.request(options)
-            if(mortgage) 
+            if(mortgage){
                 setMonthlyPayment(mortgage.data.monthlyPayment.toFixed(2))
-            submitAppplication()
+                submitAppplication()
+            } 
+
         } catch (err) { 
             console.log('Error:',err) 
         }
@@ -185,12 +187,10 @@ export const MortageCalculator = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={3}>
-                                <Grid xs={6} item>
+                                <Grid xs={12} item>
                                     <Button onClick={calculateMortgageRate} variant="contained" sx={styles.FullWidthButton}>Get my options</Button>
                                 </Grid>
-                                <Grid xs={6} item>
-                                    <Button href="/analytics" variant="outlined" sx={styles.FullWidthButton}>View Analytics</Button>
-                                </Grid>
+                                
                             </Grid>
                         </Grid>
                     </Grid>

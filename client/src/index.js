@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import App from './App'
+import {Home} from './pages/Home'
 import {Mortgage} from './pages/Mortgage'
 import { Analytics } from './pages/Analytics'
 import reportWebVitals from './reportWebVitals'
@@ -11,13 +11,12 @@ import {
 } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-
 // Name the route and add 
 // your component, that easy
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App/>,
+    element: <Home/>,
   },
   {
     path: '/',

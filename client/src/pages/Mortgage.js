@@ -15,7 +15,7 @@ export const Mortgage = () => {
     }
     return (
         <>
-            <Container sx={styles.Container} maxwidth="sm">
+            <Container sx={styles.Container} maxwidth="xl">
                 <Typography variant="h2">Mortage Calculator</Typography>
                 <Typography variant="h6">
                     Our free mortgage calculator helps you get a detailed 
