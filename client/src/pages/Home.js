@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { MortageCalculator } from '../components/MortgageCalculator'
 import {Box, Button, Container, Grid, Typography} from '@mui/material'
+import {RegisterForm} from '../components/RegisterForm'
 
 export const Home = () => {
     const styles = {
@@ -20,6 +21,9 @@ export const Home = () => {
                 <Grid container spacing={10}>
                     <Grid item xs={12} md={6}>
                         <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <RegisterForm />
+                            </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="h2">Mortage Calculator</Typography>
                             </Grid>
