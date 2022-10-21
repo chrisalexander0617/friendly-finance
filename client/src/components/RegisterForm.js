@@ -15,31 +15,6 @@ export const RegisterForm = () => {
         }
     }
 
-    const actionCodeSettings = {
-        // URL you want to redirect back to. The domain (www.example.com) for this
-        // URL must be in the authorized domains list in the Firebase Console.
-        url: 'http://localhost:3000',
-        // This must be true.
-        handleCodeInApp: true,
-        iOS: {
-          bundleId: 'com.localhost.ios'
-        },
-        android: {
-          packageName: 'com.localhost.android',
-          installApp: true,
-          minimumVersion: '12'
-        },
-        dynamicLinkDomain: 'localhost.page.link'
-    };
-
-    const sendSignInVerificationLink = async () => {
-        try {
-            sendSignInLinkToEmail(auth, credentials.email, actionCodeSettings)
-        } catch(err){
-            console.log('err', err)
-        }
-    }
-
     const credentials = {
         email:email,
         password:password
@@ -58,8 +33,7 @@ export const RegisterForm = () => {
         }
     }
 
-    const handleLogOut = async () => 
-        await signOut(auth)
+    const handleLogOut = async () => await signOut(auth)
 
     const handleSubmit = async () => {
         try {
@@ -67,12 +41,10 @@ export const RegisterForm = () => {
         } catch (err) {
             console.log(err.message)
             if(err.message === 'auth/email-already-in-use'){
-                
+                // do something
             }
         }
     }  
-
-
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -96,7 +68,7 @@ export const RegisterForm = () => {
                 <Grid item xs={12}>
                     <Grid container spacing={1}>
                         <Grid item>
-                            <Button variant="contained" onClick={sendSignInVerificationLink}>Register/Login</Button>
+                            <Button variant="contained" onClick={handleSubmit}>Register/Login</Button>
                         </Grid>
                         <Grid item>
                             <Button variant="contained" onClick={handleLogOut}>Log Out</Button>

@@ -10,6 +10,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 // Name the route and add 
 // your component, that easy
