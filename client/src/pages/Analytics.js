@@ -79,6 +79,8 @@ export const Analytics = () => {
         return () => fetchedApplications.current = false
     },[])
 
+ 
+
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
@@ -102,7 +104,6 @@ export const Analytics = () => {
                                 label="email" 
                                 type="email"
                             />
-
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
